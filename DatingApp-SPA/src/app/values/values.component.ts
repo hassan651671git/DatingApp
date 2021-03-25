@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ValuesComponent implements OnInit {
 
-  constructor() { }
+  values: any;
+  constructor(private httpClient:HttpClient) { }
 
   ngOnInit() {
+this.httpClient.get('http://localhost:5000/Values/get').subscribe(
+(data)=>{
+this.values=data;
+},
+(error)=>{
+console.log(error);
+}
+);
   }
 
 }
