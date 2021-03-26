@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using DatingApp.Api.Data;
+using DatingApp.Api.Helpers;
 using DatingApp.Api.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +26,8 @@ namespace DatingApp.Api
 {
     public class Startup
     {
-    
+
+        
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
@@ -50,8 +55,8 @@ namespace DatingApp.Api
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(
                        Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                       ValidateIssuer=false,
-                       ValidateAudience=false
+                ValidateIssuer = false,
+                ValidateAudience = false
 
             });
         }
@@ -66,19 +71,37 @@ namespace DatingApp.Api
                 //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DatingApp.Api v1"));
 
             }
+            else
+            {
+                app.UseExceptionHandler(handler =>
+                {
+                    handler.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            context.Response.AddApplicationsError(error.Error.Message);
+                            context.Response.WriteAsync(error.Error.Message);
+                        }
+
+
+                    });
+                });
+            }
 
             // app.UseHttpsRedirection();
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
-             app.UseAuthentication();
-             app.UseAuthorization();
-           
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-            
-            
+
+
             app.UseMvc(routeBuilder => routeBuilder.MapRoute("api_default", "{controller}/{action}/{id?}"));
         }
     }

@@ -4,9 +4,9 @@ namespace DatingApp.Api.DTOs
 {
     public class UserForRegisterDto
 {
-    [Required]
+    [Required(ErrorMessage="username is required")]
     public string userName { get; set; }
-    [Required]
+    [Required(ErrorMessage="password is required")]
     [MinLength(3,ErrorMessage="min char for pass is 3" )]
     public string passWord { get; set; }
     
