@@ -7,6 +7,7 @@ namespace DatingApp.Api.DTOs
     [Required]
     public string userName { get; set; }
     [Required]
+    [MinLength(3,ErrorMessage="min char for pass is 3" )]
     public string passWord { get; set; }
     
 }

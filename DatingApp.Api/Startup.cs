@@ -68,7 +68,7 @@ namespace DatingApp.Api
             }
 
             // app.UseHttpsRedirection();
-
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
              app.UseAuthentication();
              app.UseAuthorization();
@@ -77,7 +77,7 @@ namespace DatingApp.Api
             {
                 endpoints.MapControllers();
             });
-            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            
             
             app.UseMvc(routeBuilder => routeBuilder.MapRoute("api_default", "{controller}/{action}/{id?}"));
         }
