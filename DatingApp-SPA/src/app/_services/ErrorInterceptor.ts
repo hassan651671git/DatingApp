@@ -12,7 +12,7 @@ export class ErrorInterceptor implements HttpInterceptor{
              
               if(error instanceof HttpErrorResponse)
               {
-                //console.log('>>>>>>>>>>'+error+">>>>>");
+                 
                   if(error.status===401){
                    
                       return throwError(error.statusText);

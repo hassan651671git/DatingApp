@@ -50,10 +50,10 @@ namespace DatingApp.Api.Controllers
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserForLoginDto loginDetails)
+        public async Task<IActionResult> Login([FromBody]UserForLoginDto loginDetails)
         {
 
-            if (!ModelState.IsValid)
+             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
