@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using DatingApp.Api.Data;
+using DatingApp.Api.DTOs;
 using DatingApp.Api.Helpers;
 using DatingApp.Api.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -27,7 +28,7 @@ namespace DatingApp.Api
     public class Startup
     {
 
-        
+
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
@@ -45,10 +46,17 @@ namespace DatingApp.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingApp.Api", Version = "v1" });
             });
             services.AddCors();
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddMvc(options => options.EnableEndpointRouting = false);
+            // .AddJsonOptions(
+            //             options => { options.SerializerSettings.RefrenceLoopHandling =
+            //              Newtonsoft.Json.ReferenceLoopHandling.Ignore}
+            // );
             services.AddDbContext<DataContext>(x =>
             x.UseSqlite(Configuration.GetConnectionString("sqliteConectionString")));
+            services.AddTransient<Seed>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
             {
@@ -62,7 +70,7 @@ namespace DatingApp.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
@@ -90,7 +98,7 @@ namespace DatingApp.Api
                 });
             }
 
-            // app.UseHttpsRedirection();
+          //   seeder.SeedUsers();
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
             app.UseAuthentication();
