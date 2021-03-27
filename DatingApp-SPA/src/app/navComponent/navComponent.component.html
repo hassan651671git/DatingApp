@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
   <div class="container col-md-12 justify-content-right">
-  <a class="navbar-brand text-white" href="#">Dating App</a>
+  <a class="navbar-brand text-white" [routerLink]="['/home']" >Dating App</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -10,19 +10,19 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
  
     <ul class="navbar-nav mr-auto" *ngIf="logedIn()">
-      <li class="nav-item ">
-        <a class="nav-link text-secondary  " href="#">Matches <span class="sr-only">(current)</span></a>
+      <li class="dropdown-item " routerLinkActive="active">
+        <a class="nav-link text-secondary  " [routerLink]="['/members']"  >
+          Matches 
+          <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link text-secondary" href="#">Lists</a>
+      <li class="dropdown-item" routerLinkActive="active">
+        <a class="nav-link text-secondary"[routerLink]="['/lists']" >Lists</a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link text-secondary" href="#">Messages</a>
+      <li class="dropdown-item" routerLinkActive="active">
+        <a class="nav-link text-secondary" [routerLink]="['/messages']" >Messages</a>
       </li>
      
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+       
       
     </ul>
 
@@ -35,7 +35,7 @@
               
               
       </a>
-      <ul id="dropdown-basic mt-16" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+      <ul id="dropdown-basic " style="margin-top:7px;" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
           
         <li role="menuitem"><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
         <li role="menuitem"><a class="dropdown-item" href="#"><i class="fa fa-cog"></i> Settings</a></li>

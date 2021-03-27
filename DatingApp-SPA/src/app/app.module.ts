@@ -14,15 +14,21 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/ErrorInterceptor';
 import { AlertfyService } from './_services/Alertfy.service';
+import { MemebersComponent } from './memebers/memebers.component';
+import { MessagesComponent } from './messages/messages.component';
+import { ListsComponent } from './lists/lists.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 @NgModule({
-  declarations: [				
+  declarations: [							
     AppComponent,
       
       NavComponentComponent,
       HomeComponent,
-      RegisterComponent
-     
+      RegisterComponent,
+      MemebersComponent,
+      MessagesComponent,
+      ListsComponent
    ],
   imports: [
     BrowserModule,
@@ -32,7 +38,7 @@ import { AlertfyService } from './_services/Alertfy.service';
     BrowserAnimationsModule,
     BsDropdownModule.forRoot()
   ],
-  providers: [AuthService, ErrorInterceptorProvider,AlertfyService],
+  providers: [AuthService, ErrorInterceptorProvider,AlertfyService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertfyService } from '../_services/Alertfy.service';
 import { AuthService } from '../_services/AuthService';
 
@@ -11,7 +12,8 @@ import { AuthService } from '../_services/AuthService';
 export class NavComponentComponent implements OnInit {
   model: any = {};
   form1: any = {};
-  constructor(public _authService: AuthService,private _alertifyService:AlertfyService) {}
+  constructor(public _authService: AuthService,private _alertifyService:AlertfyService,
+    private router:Router) {}
 
   login(): void {
     console.log(JSON.stringify(this.model));
@@ -19,10 +21,12 @@ export class NavComponentComponent implements OnInit {
     this._authService.Login(this.model).subscribe(
       (data:any) => {
         const user=data;
+       
         this._alertifyService.success("logedin successfully");
         
       },
-      (error) => this._alertifyService.error(error)
+      (error) => this._alertifyService.error(error),
+      ()=>{ this.router.navigate(['/members']);}
     );
   }
   logedIn():boolean{
@@ -32,6 +36,7 @@ export class NavComponentComponent implements OnInit {
   logOut(){
     localStorage.removeItem('token');
     this._alertifyService.message("you are logged out");
+    this.router.navigate(['/home']);
   }
   ngOnInit() {}
 }
