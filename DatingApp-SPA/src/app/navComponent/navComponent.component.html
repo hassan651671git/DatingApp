@@ -1,11 +1,15 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+  <div class="container col-md-12 justify-content-right">
   <a class="navbar-brand text-white" href="#">Dating App</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+ 
+    <ul class="navbar-nav mr-auto" *ngIf="logedIn()">
       <li class="nav-item ">
         <a class="nav-link text-secondary  " href="#">Matches <span class="sr-only">(current)</span></a>
       </li>
@@ -19,31 +23,37 @@
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " *ngIf="logedIn()" (click)="logOut()" href="#">Logout</a>
-      </li>
+      
     </ul>
 
-     <div class="dropdown">
-      <a class="nav-link dropdown-toggle mr-md-1" href="#" id="navbarDropdown" *ngIf="logedIn()"
-       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Welcome User
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div>
-     </div>
 
-    <form class="form-inline my-2 my-lg-0" #loginForm="ngForm" *ngIf="!logedIn()" (submit)="login()" >
-      <input class="form-control mr-sm-2" name="userName" type="text" required placeholder="UserName" 
-         [(ngModel)]="model.UserName" >
-      <input class="form-control mr-sm-2" name="passWord" type="password" required placeholder="Password"
-         [(ngModel)]="model.PassWord">
-      <button class="btn btn-success my-2 my-sm-0" [disabled]="loginForm.invalid" type="submit">Login</button>
-    </form>
-  </div>
+
+
+    <div class="btn-group mr-3" dropdown *ngIf="logedIn()">
+      <a id="button-basic" dropdownToggle  class="dropdown-toggle text-light nav-link" >
+               Welcome {{_authService.getUserName()!}} 
+              
+              
+      </a>
+      <ul id="dropdown-basic mt-16" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          
+        <li role="menuitem"><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#"><i class="fa fa-cog"></i> Settings</a></li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem"><a class="dropdown-item"  (click)="logOut()"><i class="fa fa-sign-out"></i> Logout</a></li>
+        </ul>
+    </div>
+    
+    
+      <form class="form-inline my-2 my-lg-0 ml-auto navbar-form navbar-right " #loginForm="ngForm" *ngIf="!logedIn()" (submit)="login()" >
+        <input class="form-control mr-sm-2" name="userName" type="text" required placeholder="UserName" 
+          [(ngModel)]="model.UserName" >
+        <input class="form-control mr-sm-2" name="passWord" type="password" required placeholder="Password"
+          [(ngModel)]="model.PassWord">
+        <button class="btn btn-success my-2 my-sm-0" [disabled]="loginForm.invalid" type="submit">Login</button>
+      </form>
+    </div>
+ 
+ </div>
 </nav>
 <!-- {{loginForm.value|json}} -->

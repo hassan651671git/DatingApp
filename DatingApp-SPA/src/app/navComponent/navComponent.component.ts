@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AlertfyService } from '../_services/Alertfy.service';
 import { AuthService } from '../_services/AuthService';
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthService } from '../_services/AuthService';
 export class NavComponentComponent implements OnInit {
   model: any = {};
   form1: any = {};
-  constructor(private _authService: AuthService) {}
+  constructor(public _authService: AuthService,private _alertifyService:AlertfyService) {}
 
   login(): void {
     console.log(JSON.stringify(this.model));
@@ -18,18 +19,19 @@ export class NavComponentComponent implements OnInit {
     this._authService.Login(this.model).subscribe(
       (data:any) => {
         const user=data;
-        console.log("logedin successfully");
-        localStorage.setItem('token',user.token);
+        this._alertifyService.success("logedin successfully");
+        
       },
-      (error) => console.log(error)
+      (error) => this._alertifyService.error(error)
     );
   }
   logedIn():boolean{
-    return !!localStorage.getItem('token');
+    return this._authService.isLoggedIn();
   }
 
   logOut(){
     localStorage.removeItem('token');
+    this._alertifyService.message("you are logged out");
   }
   ngOnInit() {}
 }

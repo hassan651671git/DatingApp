@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  registerMode: boolean = true;
+  registerMode: boolean = false;
  
   constructor(private httpClient:HttpClient) {}
 

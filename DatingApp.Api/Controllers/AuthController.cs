@@ -29,7 +29,7 @@ namespace DatingApp.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> register(UserForRegisterDto userForRegisterDto)
+        public async Task<IActionResult> register([FromBody]UserForRegisterDto userForRegisterDto)
         {
             if (!ModelState.IsValid)
             {
