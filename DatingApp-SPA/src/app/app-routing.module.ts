@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
-import { MemebersComponent } from './memebers/memebers.component';
+import { MemberDetailsComponent } from './members/member-details/member-details.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { MemberDetailsResolver } from './_resolvers/member-details-resolver';
+import { MemberListResolver } from './_resolvers/member-list-resolver';
 
 const routes: Routes = [
   {
@@ -23,8 +26,14 @@ const routes: Routes = [
      children:[
       {
         path: 'members',
-        component: MemebersComponent,
-        canActivate:[AuthGuard]
+        component: MemberListComponent,
+        resolve:{users:MemberListResolver}
+        
+      },
+      {
+        path: 'members/:id',
+        component: MemberDetailsComponent,
+        resolve:{user:MemberDetailsResolver},
       },
       {
         path: 'messages',
