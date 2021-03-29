@@ -37,7 +37,8 @@
       </a>
       <ul id="dropdown-basic " style="margin-top:7px;" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
           
-        <li role="menuitem"><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/member/edit']"
+          ><i class="fa fa-user"></i>Edit Profile</a></li>
         <li role="menuitem"><a class="dropdown-item" href="#"><i class="fa fa-cog"></i> Settings</a></li>
         <li class="divider dropdown-divider"></li>
         <li role="menuitem"><a class="dropdown-item"  (click)="logOut()"><i class="fa fa-sign-out"></i> Logout</a></li>

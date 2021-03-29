@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/User';
 
@@ -26,4 +27,11 @@ export class UserService {
   getUser(id: number): Observable<User> {
     return this.httpClient.get<User>(this.baseUrl + id);
   }
+
+  updateUser(id:number,user: User){
+   return this.httpClient.put(this.baseUrl+'update/' +id,user);
+
+  }
+
+
 }

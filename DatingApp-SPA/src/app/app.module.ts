@@ -26,6 +26,9 @@ import { MemberDetailsResolver } from './_resolvers/member-details-resolver';
 import { MemberListResolver } from './_resolvers/member-list-resolver';
 import 'hammerjs';
 import { NgxGalleryModule } from 'ngx-gallery-9';
+import { EditMemberComponent } from './members/edit-member/edit-member.component';
+import { MemberEditResolver } from './_resolvers/member-edit-resolver ';
+import { EditProfileCanDeactivateGuard } from './_guards/editProfile.guard';
 //import { NgxGalleryModule } from 'ngx-gallery';//Erroorrrrrrrrrrrrrrrrrr
 
 
@@ -44,6 +47,7 @@ export function TokenGetter() {
     ListsComponent,
     MemberComponent,
     MemberDetailsComponent,
+    EditMemberComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,9 @@ export function TokenGetter() {
     AuthGuard,
     UserService,
     MemberDetailsResolver,
-    MemberListResolver
+    MemberListResolver,
+    MemberEditResolver,
+    EditProfileCanDeactivateGuard
   ],
   bootstrap: [AppComponent],
 })
