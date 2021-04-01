@@ -8,13 +8,13 @@
         <strong>Information:</strong>  You are made changes. any unsaved changes will be lost!
       </div>
   </div>
-
+</div>
 
 <div class="row">
   <div class="col-md-4 ">
     <div class="card mt-2 card-text-center">
       <div class="card-img-top image-thumbinal text-center mx-auto">
-        <img class="card-img-top" [src]="user?.photoUrl" [alt]="user?.knowAs" />
+        <img class="card-img-top" [src]="photoUrl" [alt]="user?.knowAs" />
       </div>
       <div class="card-body p-1">
         <div class="ml-5 mr-5">
@@ -45,22 +45,23 @@
       <tabset class="member-tabset">
         <tab heading="Edit Profile">
           <h4>Description</h4>
-          <textarea rows="6" class="col-md-12" [(ngModel)]="user.introduction" name="introduction"></textarea>
+          <textarea rows="6" class="col-md-12" [(ngModel)]="user?.introduction!" name="introduction"></textarea>
           <h4>Looking For</h4>
-          <textarea rows="6" class="col-md-12" [(ngModel)]="user.lookingFor" name="lookingFor"></textarea>
+          <textarea rows="6" class="col-md-12" [(ngModel)]="user?.lookingFor!" name="lookingFor"></textarea>
           <h4>Interests</h4>
-          <textarea rows="6" class="col-md-12" [(ngModel)]="user.interests" name="interests"> </textarea>
+          <textarea rows="6" class="col-md-12" [(ngModel)]="user?.interests!" name="interests"> </textarea>
           <h4>Location Details</h4>
           <div class="form-inline">
             <label class="mr-1">City:</label>
-            <input type="text" class="form-control mr-1" [(ngModel)]="user.city" name="city">
+            <input type="text" class="form-control mr-1" [(ngModel)]="user?.city!" name="city">
             <label  class="mr-1">Country:</label>
-            <input type="text" class="form-control mr-1" [(ngModel)]="user.country" name="country">
+            <input type="text" class="form-control mr-1" [(ngModel)]="user?.country!" name="country">
           </div>
         </tab>
         <tab heading="Edit Photos">
-       
-          </tab>
+          <app-photo-editor [photos]="user?.photos"> 
+          </app-photo-editor>
+        </tab>
  
            
 
@@ -70,4 +71,4 @@
   </div>
  
 </div>
-</div>
+

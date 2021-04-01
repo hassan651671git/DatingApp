@@ -14,8 +14,8 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class EditMemberComponent implements OnInit {
   @ViewChild('editForm') editForm?: NgForm;
-  user: any = {};
-
+  user!: User;
+photoUrl?:String;
   // this function didn't work unitl now
   @HostListener('window:beforeunLoad', ['$event'])
   unloadNotification($event: any) {
@@ -32,11 +32,17 @@ export class EditMemberComponent implements OnInit {
     this._route.data.subscribe((data) => {
       this.user = data['user'];
     });
+    this._athService.photoUrlBehavior.asObservable().subscribe(
+
+      (value)=>{
+          this.photoUrl=value;
+      }
+    );
   }
 
   editProfile() {
     const id = this._athService.decodedToken.nameid;
-    this._userService.updateUser(id, this.user).subscribe(
+    this._userService.updateUser(id, this.user!).subscribe(
       (next) => {
 
         this._alertfy.success('profile Updated sccessfully');
@@ -46,8 +52,9 @@ export class EditMemberComponent implements OnInit {
        this._alertfy.error("there is an error occured");
         console.log(error);
       }
-    );
-
-   
+    ); 
   }
+
+
+    
 }

@@ -30,11 +30,12 @@
 
 
     <div class="btn-group mr-3" dropdown *ngIf="logedIn()">
+      <img class="img img-thumbnail" [src]="memberPhotoUrl">
       <a id="button-basic" dropdownToggle  class="dropdown-toggle text-light nav-link" >
                Welcome {{_authService.getUserName()!}} 
-              
-              
+         
       </a>
+   
       <ul id="dropdown-basic " style="margin-top:7px;" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
           
         <li role="menuitem"><a class="dropdown-item" [routerLink]="['/member/edit']"

@@ -29,6 +29,8 @@ import { NgxGalleryModule } from 'ngx-gallery-9';
 import { EditMemberComponent } from './members/edit-member/edit-member.component';
 import { MemberEditResolver } from './_resolvers/member-edit-resolver ';
 import { EditProfileCanDeactivateGuard } from './_guards/editProfile.guard';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import {FileUploadModule } from 'ng2-file-upload';
 //import { NgxGalleryModule } from 'ngx-gallery';//Erroorrrrrrrrrrrrrrrrrr
 
 
@@ -47,7 +49,9 @@ export function TokenGetter() {
     ListsComponent,
     MemberComponent,
     MemberDetailsComponent,
-    EditMemberComponent
+    EditMemberComponent,
+    PhotoEditorComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,7 @@ export function TokenGetter() {
     BrowserAnimationsModule,
     NgxGalleryModule,
     BsDropdownModule.forRoot(),
-    
+    FileUploadModule,
         JwtModule.forRoot({
       config: {
         tokenGetter: TokenGetter,

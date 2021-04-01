@@ -41,11 +41,12 @@ namespace DatingApp.Api
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingApp.Api", Version = "v1" });
-            });
+            // services.AddSwaggerGen(c =>
+            // {
+            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingApp.Api", Version = "v1" });
+            // });
             services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
@@ -75,7 +76,7 @@ namespace DatingApp.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
+              //  app.UseSwagger();
                 //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DatingApp.Api v1"));
 
             }
@@ -98,7 +99,7 @@ namespace DatingApp.Api
                 });
             }
 
-          //   seeder.SeedUsers();
+            // seeder.SeedUsers();
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
             app.UseAuthentication();
