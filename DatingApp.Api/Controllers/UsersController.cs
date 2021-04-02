@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.Api.Data;
 using DatingApp.Api.DTOs;
+using DatingApp.Api.Helpers;
 using DatingApp.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ namespace DatingApp.Api.Controllers
 {
     [Authorize]
     [Route("[controller]")]
+    [ServiceFilter(typeof(LogUserActivity))]
     public class UsersController : ControllerBase
 
     {
@@ -43,15 +45,14 @@ namespace DatingApp.Api.Controllers
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-                var userFromRepo= await _datingRepository.GetUser(id);
-                
+                 User userFromRepo= await _datingRepository.GetUser(id);
                 _mapper.Map(updatedUserModel,userFromRepo);
-                
               if(await _datingRepository.SaveAll()){
                   return NoContent();
               }
-
-         throw new System.Exception("failed to save updated user");
+                
+           return BadRequest( );
+         //throw new System.Exception("failed to save updated user");
  
 
         }

@@ -33,6 +33,7 @@ import { MemberEditResolver } from './_resolvers/member-edit-resolver ';
 import { EditProfileCanDeactivateGuard } from './_guards/editProfile.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import {FileUploadModule } from 'ng2-file-upload';
+import { TimeagoModule } from 'ngx-timeago';
 //import { NgxGalleryModule } from 'ngx-gallery';//Erroorrrrrrrrrrrrrrrrrr
 
 
@@ -52,7 +53,7 @@ export function TokenGetter() {
     MemberComponent,
     MemberDetailsComponent,
     EditMemberComponent,
-    PhotoEditorComponent,
+    PhotoEditorComponent
     
   ],
   imports: [
@@ -67,6 +68,7 @@ export function TokenGetter() {
     BsDropdownModule.forRoot(),
     FileUploadModule,
     ReactiveFormsModule,
+    TimeagoModule.forRoot(),
         JwtModule.forRoot({
       config: {
         tokenGetter: TokenGetter,

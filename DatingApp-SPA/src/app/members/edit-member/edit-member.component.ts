@@ -14,7 +14,7 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class EditMemberComponent implements OnInit {
   @ViewChild('editForm') editForm?: NgForm;
-  user!: User;
+  user?: User;
 photoUrl?:String;
   // this function didn't work unitl now
   @HostListener('window:beforeunLoad', ['$event'])
@@ -42,11 +42,11 @@ photoUrl?:String;
 
   editProfile() {
     const id = this._athService.decodedToken.nameid;
-    this._userService.updateUser(id, this.user!).subscribe(
-      (next) => {
-
+  ///////////////////////////////////////////  console.log(this.editForm?.value); 
+    this._userService.updateUser(id, this.editForm?.value!).subscribe(
+      (next) => {    
         this._alertfy.success('profile Updated sccessfully');
-        this.editForm?.reset(this.user);
+        this.editForm?.reset(this.editForm?.value!);
       },
       (error) => {
        this._alertfy.error("there is an error occured");
