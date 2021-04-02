@@ -56,6 +56,11 @@ if(response){
      description: res.description,
      isMain: res.isMain
    };
+   if(res.isMain){
+     this._authService.changeMemberPhoto(res.url);
+     this._authService.currentUser!.photoUrl=photo.url;
+     localStorage.setItem('userInfo',JSON.stringify(this._authService.currentUser ));
+   }
    this.photos?.push(res);
 }
   };

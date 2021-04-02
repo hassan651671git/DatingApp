@@ -1,13 +1,14 @@
-<div class="container text-center mt-6" *ngIf="!registerMode">
+<div class="container text-center mt-6 col-md-12">
+<div class="container text-center " *ngIf="!registerMode">
   <h1 class="mt-5">Find Your Match</h1>
   <h6>come on in to view your matches... All you need to do is Sign Up!</h6>
   <button class="btn btn-primary m-1"  (click)="registerMode=true">Register</button>
   <button class="btn btn-info m-1">Learn More</button>
 </div>
 
-  <div class="container">
+  <div class="container col-md-12 text-center">
   <app-register *ngIf="registerMode" (cancelRegister)="cancelRegisterHome($event)">
  </app-register>
   </div>
 
-   
+</div>

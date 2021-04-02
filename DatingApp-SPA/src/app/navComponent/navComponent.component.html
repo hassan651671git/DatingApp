@@ -30,7 +30,7 @@
 
 
     <div class="btn-group mr-3" dropdown *ngIf="logedIn()">
-      <img class="img img-thumbnail" [src]="memberPhotoUrl">
+      <img class="img img-thumbnail" [src]="memberPhotoUrl || '../../../assets/avatar.png'">
       <a id="button-basic" dropdownToggle  class="dropdown-toggle text-light nav-link" >
                Welcome {{_authService.getUserName()!}} 
          

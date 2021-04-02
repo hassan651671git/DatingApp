@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponentComponent } from './navComponent/navComponent.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './_services/AuthService';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -26,6 +26,8 @@ import { MemberDetailsResolver } from './_resolvers/member-details-resolver';
 import { MemberListResolver } from './_resolvers/member-list-resolver';
 import 'hammerjs';
 import { NgxGalleryModule } from 'ngx-gallery-9';
+// import {BsDatepickerModule} from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { EditMemberComponent } from './members/edit-member/edit-member.component';
 import { MemberEditResolver } from './_resolvers/member-edit-resolver ';
 import { EditProfileCanDeactivateGuard } from './_guards/editProfile.guard';
@@ -59,10 +61,12 @@ export function TokenGetter() {
     HttpClientModule,
     FormsModule,
     TabsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
     NgxGalleryModule,
     BsDropdownModule.forRoot(),
     FileUploadModule,
+    ReactiveFormsModule,
         JwtModule.forRoot({
       config: {
         tokenGetter: TokenGetter,
