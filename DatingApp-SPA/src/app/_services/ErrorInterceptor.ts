@@ -1,13 +1,15 @@
 import{HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS}from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { error } from 'selenium-webdriver';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor{
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        console.log()
       return next.handle(req).pipe(
+ 
           catchError(error =>{
              
               if(error instanceof HttpErrorResponse)

@@ -34,6 +34,8 @@ import { EditProfileCanDeactivateGuard } from './_guards/editProfile.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import {FileUploadModule } from 'ng2-file-upload';
 import { TimeagoModule } from 'ngx-timeago';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 //import { NgxGalleryModule } from 'ngx-gallery';//Erroorrrrrrrrrrrrrrrrrr
 
 
@@ -68,6 +70,8 @@ export function TokenGetter() {
     BsDropdownModule.forRoot(),
     FileUploadModule,
     ReactiveFormsModule,
+    ButtonsModule.forRoot(),
+    PaginationModule.forRoot(),
     TimeagoModule.forRoot(),
         JwtModule.forRoot({
       config: {

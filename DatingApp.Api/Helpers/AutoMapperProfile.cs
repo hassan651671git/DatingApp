@@ -28,7 +28,7 @@ namespace DatingApp.Api.Helpers
             })
             .ForMember(dest => dest.age, option =>
             {
-                option.MapFrom(src =>DateTime.Now.Year-src.DateOfBirth.Year);
+                option.MapFrom(src =>DateTime.Now.Year-src.DateOfBirth.Year+1);
             });
             CreateMap<UserForListDto, User>();
             CreateMap<Photo, PhotoForDetailedDto>();
