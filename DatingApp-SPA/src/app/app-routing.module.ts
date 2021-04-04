@@ -8,6 +8,7 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { EditProfileCanDeactivateGuard } from './_guards/editProfile.guard';
+import { ListsResolver } from './_resolvers/lists.resolver';
 import { MemberDetailsResolver } from './_resolvers/member-details-resolver';
 import { MemberEditResolver } from './_resolvers/member-edit-resolver ';
 import { MemberListResolver } from './_resolvers/member-list-resolver';
@@ -45,6 +46,7 @@ const routes: Routes = [
       {
         path: 'lists',
         component: ListsComponent,
+        resolve:{users:ListsResolver}
       },
       {
         path: 'member/edit',

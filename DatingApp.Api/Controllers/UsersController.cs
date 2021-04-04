@@ -19,56 +19,88 @@ namespace DatingApp.Api.Controllers
     {
         IDatingRepository _datingRepository;
         IMapper _mapper;
-        public UsersController(IDatingRepository datingRepository,IMapper mapper)
+        public UsersController(IDatingRepository datingRepository, IMapper mapper)
         {
-            _datingRepository = datingRepository; 
-            _mapper=mapper;
+            _datingRepository = datingRepository;
+            _mapper = mapper;
         }
 
         [HttpGet("")]
-        public async Task<IActionResult>getUsers([FromQuery]UserParams userParams){
-           
-        int id= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-        var userFromRepo=await _datingRepository.GetUser(id);
-        userParams.UserId=id;
-       if(string.IsNullOrEmpty(userParams.Gender))
-       {
-          userParams.Gender=userFromRepo.Gender=="male"?"female":"male";
-       }
+        public async Task<IActionResult> getUsers([FromQuery] UserParams userParams)
+        {
 
-            var users= await _datingRepository.GetUsers(userParams);
-          var  PaginationHeader=
-          new PaginationHeader(users.CurrentPage,users.TotalCount,users.TotalPages,users.PageSize);
-            IEnumerable<UserForListDto>usersFolListDto=_mapper.Map<IEnumerable<UserForListDto>>(users);
+            int id = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userFromRepo = await _datingRepository.GetUser(id);
+            userParams.UserId = id;
+            if (string.IsNullOrEmpty(userParams.Gender))
+            {
+                userParams.Gender = userFromRepo.Gender == "male" ? "female" : "male";
+            }
+
+            var users = await _datingRepository.GetUsers(userParams);
+            var PaginationHeader =
+            new PaginationHeader(users.CurrentPage, users.TotalCount, users.TotalPages, users.PageSize);
+            IEnumerable<UserForListDto> usersFolListDto = _mapper.Map<IEnumerable<UserForListDto>>(users);
             Response.AddPagination(PaginationHeader);
-            return  Ok(usersFolListDto);
+            return Ok(usersFolListDto);
         }
 
-          [HttpGet("{id}",Name="GetUser")]
-        public async Task<IActionResult>getUser(int id){
-            var user= await _datingRepository.GetUser(id);
-            UserForDetailedDto userModel=_mapper.Map<UserForDetailedDto>(user);
-            return  Ok(userModel);
+        [HttpGet("{id}", Name = "GetUser")]
+        public async Task<IActionResult> getUser(int id)
+        {
+            var user = await _datingRepository.GetUser(id);
+            UserForDetailedDto userModel = _mapper.Map<UserForDetailedDto>(user);
+            return Ok(userModel);
         }
         [HttpPut("update/{id}")]
-        public async Task<IActionResult>Update(int id,[FromBody]UserForUpdateDto updatedUserModel)
+        public async Task<IActionResult> Update(int id, [FromBody] UserForUpdateDto updatedUserModel)
         {
 
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-                 User userFromRepo= await _datingRepository.GetUser(id);
-                _mapper.Map(updatedUserModel,userFromRepo);
-              if(await _datingRepository.SaveAll()){
-                  return NoContent();
-              }
-                
-           return BadRequest( );
-         //throw new System.Exception("failed to save updated user");
- 
+            User userFromRepo = await _datingRepository.GetUser(id);
+            _mapper.Map(updatedUserModel, userFromRepo);
+            if (await _datingRepository.SaveAll())
+            {
+                return NoContent();
+            }
+
+            return BadRequest();
+            //throw new System.Exception("failed to save updated user");
+
 
         }
 
+        [HttpPost("{likerId}/like/{likeeId}")]
+        public async Task<IActionResult> LikeUser(int likerId, int likeeId)
+        {
+            if (likerId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
 
+                if(await _datingRepository.GetLike(likerId,likeeId)!=null)
+                {
+                    return BadRequest("you already liked this user");
+                }
+
+                if(await _datingRepository.GetUser(likeeId)==null){
+                    return NotFound("no user with this id");
+                }
+
+                Like like=new Like{
+                    LikerId=likerId,
+                    LikeeID=likeeId
+                };
+                _datingRepository.Add<Like>(like);
+
+                if(await _datingRepository.SaveAll())
+                {
+                    return Ok();
+
+                }
+
+                return BadRequest();
+
+        }
     }
 }

@@ -52,6 +52,21 @@ namespace DatingApp.Api.Data
 
                 }
             }        
+              
+              if(userParams.Likers)
+              {
+                 var userLikers=await getUserLikers(userParams.UserId);
+                 querableUsers=querableUsers.Where(u =>userLikers.Contains(u.Id));
+              }
+              if(userParams.Likees)
+              {
+                 var userLikees=await getUserLikees(userParams.UserId);
+                 querableUsers=querableUsers.Where(u =>userLikees.Contains(u.Id));
+              }
+
+
+
+
               return await  PagedList<User>.CreateAsync(querableUsers,userParams.PageNumber,userParams.PageSize);
         }
 
@@ -64,6 +79,25 @@ namespace DatingApp.Api.Data
         {
              return await _context.Photos.FirstOrDefaultAsync(p=>p.Id==id);
         }
+
+        public async Task<Like> GetLike(int likerId, int LikeeId)
+        {
+            return await _context.Likes.FirstOrDefaultAsync(l =>l.LikerId==likerId&&l.LikeeID==LikeeId);
+        }
+
+
+        private async Task<IEnumerable<int>>getUserLikees(int id)
+        {
+            var user=_context.Users.Include(u=>u.Likees).FirstOrDefault(u =>u.Id==id);
+            return user.Likees.Select(l =>l.LikeeID);
  
+        }
+
+          private async Task<IEnumerable<int>>getUserLikers(int id)
+        {
+            var users=_context.Users.Include(u=>u.Likers).FirstOrDefault(u =>u.Id==id);
+            return users.Likers.Select(l =>l.LikerId);
+
+        }
     }
 }

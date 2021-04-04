@@ -36,6 +36,7 @@ import {FileUploadModule } from 'ng2-file-upload';
 import { TimeagoModule } from 'ngx-timeago';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ListsResolver } from './_resolvers/lists.resolver';
 //import { NgxGalleryModule } from 'ngx-gallery';//Erroorrrrrrrrrrrrrrrrrr
 
 
@@ -90,6 +91,7 @@ export function TokenGetter() {
     MemberDetailsResolver,
     MemberListResolver,
     MemberEditResolver,
+    ListsResolver,
     EditProfileCanDeactivateGuard
   ],
   bootstrap: [AppComponent],
