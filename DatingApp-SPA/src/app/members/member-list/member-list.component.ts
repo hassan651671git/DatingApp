@@ -39,7 +39,7 @@ export class MemberListComponent implements OnInit {
       (data)=>{
         this.users=data['users'].result;
         this.paginationData=data['users'].pagination;
-        console.error(this.paginationData);
+         
       }
     );
     }
@@ -55,7 +55,7 @@ export class MemberListComponent implements OnInit {
 
     }
     loadUsers(){
-      console.log(this.userParams.orderBy);
+    
     this._userService.getUsers( this.paginationData?.currentPage,this.paginationData?.itemsPerPage,this.userParams).subscribe(
       (data) => {
         this.users= data.result;

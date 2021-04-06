@@ -22,7 +22,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
+//  using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 namespace DatingApp.Api
 {
     public class Startup
@@ -55,6 +55,9 @@ namespace DatingApp.Api
             //             options => { options.SerializerSettings.RefrenceLoopHandling =
             //              Newtonsoft.Json.ReferenceLoopHandling.Ignore}
             // );
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
             services.AddDbContext<DataContext>(x =>
             x.UseSqlite(Configuration.GetConnectionString("sqliteConectionString")));
             services.AddTransient<Seed>();

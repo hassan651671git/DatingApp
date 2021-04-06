@@ -37,6 +37,8 @@ import { TimeagoModule } from 'ngx-timeago';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ListsResolver } from './_resolvers/lists.resolver';
+import { MessagesResolver } from './_resolvers/messages-resolver';
+import { MesseagesThreadComponent } from './members/MesseagesThread/MesseagesThread.component';
 //import { NgxGalleryModule } from 'ngx-gallery';//Erroorrrrrrrrrrrrrrrrrr
 
 
@@ -56,7 +58,9 @@ export function TokenGetter() {
     MemberComponent,
     MemberDetailsComponent,
     EditMemberComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    MesseagesThreadComponent,
+   
     
   ],
   imports: [
@@ -74,6 +78,7 @@ export function TokenGetter() {
     ButtonsModule.forRoot(),
     PaginationModule.forRoot(),
     TimeagoModule.forRoot(),
+
         JwtModule.forRoot({
       config: {
         tokenGetter: TokenGetter,
@@ -92,6 +97,7 @@ export function TokenGetter() {
     MemberListResolver,
     MemberEditResolver,
     ListsResolver,
+    MessagesResolver,
     EditProfileCanDeactivateGuard
   ],
   bootstrap: [AppComponent],

@@ -29,14 +29,14 @@
           >
             Like
           </button>
-          <button class="btn btn-success w-100">Message</button>
+          <button class="btn btn-success w-100" (click)="selectTab(3)">Message</button>
         </div>
       </div>
     </div>
   </div>
   <div class="col-md-7">
     <div class="tap-panel">
-      <tabset class="member-tabset">
+      <tabset class="member-tabset" #tabsetComponent >
         <tab heading="About {{ user?.knowAs }}">
           <h4>Description</h4>
           <p>{{ user?.introduction }}</p>
@@ -52,13 +52,11 @@
 
         <tab heading="Photos">
           <ngx-gallery [options]="galleryOptions!" [images]="galleryImages!"></ngx-gallery>
-           {{galleryImages|json}}
+           
           </tab>
 
-          <tab heading="Messages">
-            <h4>Interests</h4>
-            <p>{{ user?.interests}}</p>
-           
+          <tab heading="Messages"  (selectTab)="onSelect($event)">
+           <app-MesseagesThread [recipientId]="+user?.id!"></app-MesseagesThread>
           </tab>
 
       </tabset>
