@@ -16,7 +16,7 @@ users?:User[];
 paginationData?:Pagination;
 userParams?:any={};
 likesParam:string='likers';
-genderList=[{value:'male',select:'Males'},{value:'female',select:'Females'}];
+ genderList=[{value:'male',select:'Males'},{value:'female',select:'Females'}];
 
   constructor(private _authService:AuthService,private _alertfy:AlertfyService,
     private _userService:UserService,private _route:ActivatedRoute) {

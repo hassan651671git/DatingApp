@@ -77,8 +77,5 @@ this._userService.getUser(+this._activatedRoutr.snapshot.paramMap.get('id')!).su
 );
   }
 
-  onSelect(data: TabDirective): void
-  {
-      
-  }
+ 
 }

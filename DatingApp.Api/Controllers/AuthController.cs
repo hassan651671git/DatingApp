@@ -34,6 +34,7 @@ namespace DatingApp.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> register([FromBody]UserForRegisterDto userForRegisterDto)
         {
+            return BadRequest("This is Test Version !! ....Sorry We reached Maximum Count of Users");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
