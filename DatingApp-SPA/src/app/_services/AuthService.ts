@@ -38,11 +38,12 @@ export class AuthService {
         if (user) {
           localStorage.setItem('token', user.token);
           localStorage.setItem('userInfo',JSON.stringify(user.userInfo));
-          
+         
           const token = localStorage.getItem('token');
 
           this.decodedToken = this.jwtHelperService.decodeToken(token!);
          this.currentUser! =user.userInfo;
+         this.photoUrlBehavior.next(this.currentUser?.photoUrl!);
         }
       })
     );
